@@ -42,13 +42,11 @@ func New(load KeyStoreCacheLoader) *KeyStoreCache {
 func (k *KeyStoreCache) Get(key string) string {
 	k.mu.Lock()
 	val, ok := k.cache[key]
-	k.mu.Unlock()
 
 	// Miss - load from database and save it in cache
 	if !ok {
 		val = k.load(key)
 
-		k.mu.Lock()
 		k.cache[key] = val
 		k.pages.PushFront(key)
 
@@ -57,9 +55,9 @@ func (k *KeyStoreCache) Get(key string) string {
 			delete(k.cache, k.pages.Back().Value.(string))
 			k.pages.Remove(k.pages.Back())
 		}
-		k.mu.Unlock()
 	}
 
+	k.mu.Unlock()
 	return val
 }
 
