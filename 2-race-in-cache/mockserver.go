@@ -23,14 +23,14 @@ func RunMockServer(cache *KeyStoreCache) {
 
 	for c := 0; c < cycles; c++ {
 		wg.Add(1)
-		go func() {
-			for i := 0; i < callsPerCycle; i++ {
+		go func(c int) {
+			for i := c * callsPerCycle; i < (c+1)*callsPerCycle; i++ {
 
 				cache.Get("Test" + strconv.Itoa(i))
 
 			}
 			wg.Done()
-		}()
+		}(c)
 	}
 
 	wg.Wait()
