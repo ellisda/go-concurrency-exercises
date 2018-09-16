@@ -43,7 +43,7 @@ func (s *Stream) Next() (*Tweet, error) {
 	return &tweet, nil
 }
 
-// Tweet defines the simlified representation of a tweet
+// Tweet defines the simplified representation of a tweet
 type Tweet struct {
 	Username string
 	Text     string
