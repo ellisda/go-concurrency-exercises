@@ -1,4 +1,4 @@
-# Race condition in caching szenario
+# Race condition in caching scenario
 
 Given is some code to cache key-value pairs from a mock database into
 the main memory (to reduce access time). The code is buggy and
